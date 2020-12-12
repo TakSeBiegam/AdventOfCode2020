@@ -26,11 +26,12 @@ int main()
             continue;
         }
         for(int j=i;j<numbs.size();++j){
-            if(numbs[i] + numbs[j] == 2020){
-                cout << numbs[i]*numbs[j] << endl;
+            for(int k=j;k<numbs.size();++k){
+                if(numbs[i] + numbs[j] + numbs[k] == 2020){
+                    cout << numbs[i]*numbs[j]*numbs[k] << endl;
+                }
             }
         }
     }
-    
     return 0;
 }
