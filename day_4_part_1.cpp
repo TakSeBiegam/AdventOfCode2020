@@ -38,7 +38,7 @@ int main()
             }
         }
     }
-    
+    file.close();
     if(small_counter > 6){
         large_counter++;
     }
