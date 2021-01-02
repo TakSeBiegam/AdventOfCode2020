@@ -1,2 +1,2 @@
 # AdventOfCode2020
-1. Hello World
+https://adventofcode.com/2020/
