@@ -33,12 +33,12 @@ int solution(vector<int> &adapters){
         case 2:
             break;  
         default:
+            cout << "Anti infinity Loop - activated" << endl;
             return 3; //anti infinity loop
-            break;
         }
         element_number++;
     }
-    cout << one_jolts*three_jolts << endl;
+    cout << one_jolts << " " << three_jolts << endl;
     return 1;
 }
 
