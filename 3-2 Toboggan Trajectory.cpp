@@ -9,7 +9,7 @@
         fstream file;
         string temp;
         map<int, string> m;
-        file.open("data.txt", ios::in);
+        file.open("testcase.txt", ios::in);
         long int counter[5] = {0,0,0,0,0};
         int right[5] = {1,3,5,7,1};
         int down[5] = {1,1,1,1,2};

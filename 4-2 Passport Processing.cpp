@@ -130,7 +130,7 @@ void separate_pasport(fstream &f){
 int main()
 {
     fstream file;
-    file.open("data.txt", ios::in);
+    file.open("testcase.txt", ios::in);
     separate_pasport(file);
     file.close();
     ////////////////////////////////////////////////

@@ -30,7 +30,7 @@ void check(vector<char> &v, map<int, string> &m, int &c){
 int main()
 {
     fstream file;
-    file.open("data.txt", ios::in);
+    file.open("testcase.txt", ios::in);
     string line;
 
     int counter = 0;

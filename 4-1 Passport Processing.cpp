@@ -13,7 +13,7 @@ int main()
     char * chest;
     int large_counter = 0;
     int small_counter = 0;
-    file.open("data.txt", ios::in);
+    file.open("testcase.txt", ios::in);
     while(getline(file,line)){
         if(line.empty()){
             if(small_counter > 6){

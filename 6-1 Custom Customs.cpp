@@ -9,7 +9,7 @@ using namespace std;
 int main()
 {
     fstream file;
-    file.open("data.txt", ios::in);
+    file.open("testcase.txt", ios::in);
     string line;
 
     int counter = 0;

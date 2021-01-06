@@ -11,7 +11,7 @@
     {
         fstream file;
         string temp;
-        file.open("data.txt", ios::in);
+        file.open("testcase.txt", ios::in);
         int counter =0;
         int letter_counter;
         while(getline(file, temp)){
@@ -32,10 +32,12 @@
             int second = 0;
             for(int i=0;i<num_line_minus;i++){
                 first_helper.push_back(temp[i]);
+                cout << "first_helper: " << temp[i] << endl;
             }
 
             for(int i=(num_line_minus+1);i<num_line_space[0];i++){
                 second_helper.push_back(temp[i]);
+                cout << "second_helper: " << temp[i] << endl;
             }
             int c = 1;
             for(unsigned i =1;i<first_helper.size();i++){
@@ -51,7 +53,7 @@
             for(unsigned i =1;i<second_helper.size();i++){
                 c *=10;
             }
-
+            
             for(unsigned i=0;i < second_helper.size();i++){
                 int let = second_helper[i]  - '0';
                 let *= c;
@@ -59,13 +61,14 @@
                 c = c/10;
             }
  
-            //cout << "first: " << first << " second: " << second << endl;
+            cout << "first: " << first << " second: " << second << endl;
             char letter_to_find = temp[(num_line_space[0]+1)];
-            //cout << "temp[first]: " << temp[num_line_space[1]+first] << " temp[second]: " << temp[num_line_space[1]+second] << endl;
-            if(temp[num_line_space[1]+first] == letter_to_find && temp[num_line_space[1]+second] == letter_to_find || temp[num_line_space[1]+first] != letter_to_find && temp[num_line_space[1]+second] != letter_to_find){
-                continue;
+            for(int i=num_line_space[1];i<temp.length();i++){
+                if(temp[i] == letter_to_find){
+                    letter_counter++;
+                }
             }
-            else{
+            if(letter_counter >= first && letter_counter <= second){
                 counter++;
             }
         }

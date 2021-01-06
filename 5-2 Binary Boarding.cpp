@@ -1,20 +1,23 @@
 #include <iostream>
 #include <fstream>
+#include <vector>
+#include <algorithm>
 
 using namespace std;
 
 int main()
 {
     fstream file;
-    file.open("data.txt", ios::in);
-    string line;
+    file.open("testcase.txt", ios::in);
+    string arrangement;
+    vector<int> seat_ids;
 
     int highest = 0;
-    while(getline(file,line)){
+    while(getline(file,arrangement)){
         int max = 127;
         int min = 0;
         for(int i=0;i<7;i++){
-            if(line[i] == 'B'){ //up
+            if(arrangement[i] == 'B'){ //up
                 min = (((max-min)/2)+min)+1;
             }
             else{ //F - low
@@ -26,20 +29,23 @@ int main()
         min = 0;
         max = 7;
         for(int i=0;i<3;i++){
-            if(line[i+7] == 'R'){
+            if(arrangement[i+7] == 'R'){
                 min = (((max-min)/2)+min)+1;
             }
             else{
                 max = (((max-min)/2)+min);
             }
         }
-        int checker = (row*8)+max;
-        if(highest < checker){
-            highest = checker;
-        }
+        int one_seat_id = (row*8)+max; //seat_id
+        seat_ids.push_back(one_seat_id);
     }
     file.close();
-
-    cout << highest << endl;
+    sort(seat_ids.begin(), seat_ids.end()); 
+    for(unsigned i = 1;i < seat_ids.size();i++){
+        cout << seat_ids[i] << endl;
+        if(seat_ids[i] != seat_ids[i-1]+1){
+            return i;
+        }
+    }
     return 0;
 }

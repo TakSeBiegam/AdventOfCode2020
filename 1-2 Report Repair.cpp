@@ -12,7 +12,7 @@ int main()
     fstream file;
     vector<int> numbs;
     string temp;
-    file.open("data.txt", ios::in);
+    file.open("testcase.txt", ios::in);
 
     while(getline(file,temp)){
         int temp_var;

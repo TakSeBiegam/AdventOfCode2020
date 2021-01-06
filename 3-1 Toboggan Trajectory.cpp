@@ -9,7 +9,7 @@
         fstream file;
         string temp;
         map<int, string> m;
-        file.open("data.txt", ios::in);
+        file.open("testcase.txt", ios::in);
         int counter = 0;
         int pos = 0; //max 31
         //right 3 and 1 down
