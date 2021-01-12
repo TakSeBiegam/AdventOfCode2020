@@ -25,47 +25,51 @@ void readfile(vector<char> &instruction_action, vector<int> &instruction_value){
     file.close();
 }
 
-void check_turn_value(int &turn_side, int angle, char symbol_of_turn, int vertical_waypoint, int horizontal_waypoint){
-    int old_turn_side = turn_side;
-    if(symbol_of_turn == 'R'){
-        turn_side += angle;
-        if(turn_side >= 360){
-            turn_side -= 360;
-        }
-    }
-    if(symbol_of_turn == 'L'){
-        turn_side += 360-angle;
-        if(turn_side >= 360){
-            turn_side -= 360;
-        }
-    }
-    int difference = old_turn_side - turn_side;
-    if(difference < 0 ){
-        difference *= -1;
-    }
+void turn_right(int &turn_side, int angle, int &vertical_waypoint, int &horizontal_waypoint){
     int temp;
-    switch (difference)
-    {
-    case 90:
-        temp = vertical_waypoint;
-        vertical_waypoint = horizontal_waypoint;
-        horizontal_waypoint = temp; 
-        break;
-    case 180: 
-        vertical_waypoint *= -1;
-        horizontal_waypoint *= -1; 
-        break;
-    case 270:
-        temp = vertical_waypoint;
-        vertical_waypoint = horizontal_waypoint;
-        horizontal_waypoint = temp; 
-        break;
-    default:
-        cout << "ERROR CHECK TURN VALUE" << endl;
-        break;
+    turn_side += angle;
+    if(turn_side >= 360){
+        turn_side -= 360;
+    }switch (angle){
+        case 180: 
+            vertical_waypoint *= -1;
+            horizontal_waypoint *= -1; 
+            break;
+        case 90:
+            temp = vertical_waypoint;
+            vertical_waypoint = (horizontal_waypoint *(-1));
+            horizontal_waypoint = temp; 
+            break;
+        case 270:
+            temp = vertical_waypoint;
+            vertical_waypoint = horizontal_waypoint ;
+            horizontal_waypoint = (temp* (-1)); 
+            break;
     }
 }
-
+void turn_left(int &turn_side, int angle, int &vertical_waypoint, int &horizontal_waypoint){
+    int temp;
+    turn_side += 360-angle;
+    if(turn_side >= 360){
+        turn_side -= 360;
+    }
+    switch (angle){
+        case 180: 
+            vertical_waypoint *= -1;
+            horizontal_waypoint *= -1; 
+            break;
+        case 90:
+            temp = vertical_waypoint;
+            vertical_waypoint = horizontal_waypoint ;
+            horizontal_waypoint = (temp* (-1)); 
+            break;
+        case 270:
+            temp = vertical_waypoint;
+            vertical_waypoint = (horizontal_waypoint *(-1));
+            horizontal_waypoint = temp; 
+            break;
+    }
+}
 void go_forward(int turn_side, int times_to_multiple_waypoint, int &go_y, int &go_x, int ver_way, int hor_way){
     if(ver_way < 0){
         ver_way *= -1;
@@ -93,6 +97,7 @@ void go_forward(int turn_side, int times_to_multiple_waypoint, int &go_y, int &g
         go_x -= (hor_way*times_to_multiple_waypoint);
         break;
     default:
+        cout << "GO FORWARD ERROR INPUT" << endl;
         break;
     }
     //cout << "Go_y: " << go_y << endl << "Go_x: " << go_x << endl;
@@ -105,9 +110,8 @@ void move_ship(vector<char> &instruction_action, vector<int> &instruction_value)
     int go_horizontal = 0;
     int go_vertical = 0;
     int turn_side = 90;
-
-    string single_line = "";
-    for (size_t i = 0; i < instruction_action.size(); i++){
+    
+    for (size_t i = 0; i < instruction_action.size(); ++i){
         switch (instruction_action[i])
         {
         case 'N':
@@ -123,17 +127,19 @@ void move_ship(vector<char> &instruction_action, vector<int> &instruction_value)
             horizontal_waypoint -= instruction_value[i];
             break;
         case 'R':
-            check_turn_value(turn_side, instruction_value[i], 'R', vertical_waypoint, horizontal_waypoint);
+            turn_right(turn_side, instruction_value[i], vertical_waypoint, horizontal_waypoint);
             break;
         case 'L':
-            check_turn_value(turn_side, instruction_value[i], 'L', vertical_waypoint, horizontal_waypoint);
+            turn_left(turn_side, instruction_value[i], vertical_waypoint, horizontal_waypoint);
             break;
         case 'F':
             go_forward(turn_side, instruction_value[i], go_vertical, go_horizontal, vertical_waypoint, horizontal_waypoint);
             break;
         default:
+            cout << "ERROR HEAD INPUT" << endl;
             break;
         }
+        //cout << "Head Communicate: " << instruction_action[i] << instruction_value[i] << endl;
         //cout << "vert: " << go_vertical << endl << "hori: " << go_horizontal << endl ;
         //cout << "v_way: "<< vertical_waypoint << endl << "h_way: " << horizontal_waypoint << endl << endl;
     }
