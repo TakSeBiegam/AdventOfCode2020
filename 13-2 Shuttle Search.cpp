@@ -45,44 +45,48 @@ void read_testcase(vector<int> &number_of_bus, vector<int> &timestamp_each_bus){
     file.close();
 }
 
-bool solution(vector<int> &number_of_bus, vector<int> &timestamp_each_bus){ 
-    std::vector<int>::iterator it;
-    long long int timestamp = 0;
-    while(true){
-        int counter_divided_numbers = 0;
-        it = find(number_of_bus.begin(), number_of_bus.end(), timestamp);
-        if(it != number_of_bus.end()){
+void solution(vector<int> &number_of_bus, vector<int> &timestamp_each_bus){ 
+    int timestamp = 0;
+    int is_inn_vector = 0;
+    int counter_of_divined_numbers = 0;
+    int place_of_equal_number_to_timestamp = 0;
+    while(counter_of_divined_numbers < 2){
+        cout << "START" << endl;
+        counter_of_divined_numbers = 0;
+        place_of_equal_number_to_timestamp = 0;
+        is_inn_vector = 0;
+
+        for(size_t i = 0; i < number_of_bus.size(); i++){
+            if(timestamp == number_of_bus[i]){
+                place_of_equal_number_to_timestamp = i;
+                is_inn_vector = 1;
+                break;
+            }
+        }
+
+        if(is_inn_vector == 1){
+            cout << "HELLO";
             for (size_t i = 0; i < number_of_bus.size(); i++){
-                int math_mem = timestamp % number_of_bus[i];
-                if(math_mem == 0){
-                    counter_divided_numbers++;
+                cout << endl << "MODULO: " << timestamp << " % " << number_of_bus[i] << " = " << timestamp%number_of_bus[i] << endl;
+                if(timestamp % number_of_bus[i] == 0){
+                    counter_of_divined_numbers++;
                 }
             }
-            int place = it - number_of_bus.begin();
-            number_of_bus[place] += timestamp_each_bus[place];
-        }
-        if(counter_divided_numbers >= 2){
-            cout << timestamp << endl;
-            return true;
+            number_of_bus[place_of_equal_number_to_timestamp] += timestamp_each_bus[place_of_equal_number_to_timestamp];
         }
         timestamp++;
     }
-    return false;
+    cout << timestamp << endl;
 }
 
 int main(){
     vector<int> number_of_bus;
     vector<int> timestamp_each_bus;
     read_testcase(number_of_bus, timestamp_each_bus); 
-    /*for (size_t i = 0; i < number_of_bus.size(); i++)
-    {
+    /*for (size_t i = 0; i < number_of_bus.size(); i++){
         cout << "Bus Number: " << number_of_bus[i] << " - " << timestamp_each_bus[i] << endl;
     }*/
     
-    bool isgood = false;
-    isgood = solution(number_of_bus, timestamp_each_bus);
-    if(isgood == false){
-        cout << "Something goes wrong !" << endl;
-    }
+    solution(number_of_bus, timestamp_each_bus);
     return 0;
 }
